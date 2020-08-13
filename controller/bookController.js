@@ -41,7 +41,11 @@ const addBookToAuthor = (req, res) => {
  * @param {import('express').Response} res Response object
  */
 const getBookFromAuthor = (req, res) => {
+    const { id, idLibro } = req.params;
+    const book = authorsArray.getBookFromAuthor(id, idLibro);
 
+    res.status(200)
+        .json({ book });
 }
 
 /**
