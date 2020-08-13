@@ -3,7 +3,7 @@ const authorController = require('../controller/authorController');
 
 /**
  * 
- * @param {Express} app 
+ * @param {import('express').Express} app 
  */
 module.exports = (app) => {
 

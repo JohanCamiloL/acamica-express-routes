@@ -1,5 +1,9 @@
 const authorController = require('../controller/authorController');
 
+/**
+ * 
+ * @param {import('express').Express} app 
+ */
 module.exports = (app) => {
 
     app.get('/autores', authorController.getAuthors);
