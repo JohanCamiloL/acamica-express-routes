@@ -4,11 +4,11 @@ module.exports = (app) => {
 
     app.get('/autores', authorController.getAuthors);
 
-    app.post('/autores', authorController.createNewAuthor);
+    app.post('/autores', authorController.verifyAuthorFirstAndLastName, authorController.createNewAuthor);
 
-    app.get('/autores/:id', authorController.getAuthorById);
+    app.get('/autores/:id', authorController.verifyIfAuthorExists, authorController.getAuthorById);
 
-    app.delete('/autores/:id', authorController.deleteAuthor);
+    app.delete('/autores/:id', authorController.verifyIfAuthorExists, authorController.deleteAuthor);
 
-    app.put('/autores/:id', authorController.updateAuthor);
+    app.put('/autores/:id', authorController.verifyIfAuthorExists, authorController.updateAuthor);
 }
