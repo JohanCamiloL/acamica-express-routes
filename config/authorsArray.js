@@ -62,11 +62,23 @@ const getAuthorById = (id) => authors.find(author => author.id == id);
  */
 const getBooksFromAuthor = (id) => getAuthorById(id).libros;
 
+/**
+ * Add the given book to the given author.
+ * @param {Number} id Author id.
+ * @param {Book} book Book.
+ */
+const addBookToAuthor = (id, book) => {
+    const author = getAuthorById(id);
+
+    author.libros.push(book);
+}
+
 module.exports = {
     updateAuthor,
     deleteAuthorById,
     getAuthorById,
     getAuthors,
     addAuthor,
-    getBooksFromAuthor
+    getBooksFromAuthor,
+    addBookToAuthor
 };

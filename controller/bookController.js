@@ -1,4 +1,5 @@
 const authorsArray = require('../config/authorsArray');
+const Book = require('../model/Book');
 
 /**
  * Get all books from the given author.
@@ -19,7 +20,19 @@ const getBooksFromAuthor = (req, res) => {
  * @param {import('express').Response} res Response object
  */
 const addBookToAuthor = (req, res) => {
+    const authorId = req.params.id;
+    const { id, titulo, descripcion, anioPublicacion } = req.body;
 
+    if (id && titulo && descripcion && anioPublicacion) {
+        const book = new Book(id, titulo, descripcion, anioPublicacion);
+        authorsArray.addBookToAuthor(authorId, book);
+
+        res.status(201)
+            .json({ authorId, bookId: id });
+    } else {
+        res.status(400)
+            .json({ message: 'Malformed body request' });
+    }
 }
 
 /**
