@@ -81,6 +81,20 @@ const addBookToAuthor = (id, book) => {
  */
 const getBookFromAuthor = (authorId, bookId) => getAuthorById(authorId).libros.find(book => book.id == bookId);
 
+/**
+ * Updates the book on the given properties on the given author.
+ * @param {Number} authorId Author id.
+ * @param {Number} bookId Book id.
+ * @param {Object} bookProperties Properties to be updated.
+ */
+const updateBookOnAuthor = (authorId, bookId, bookProperties) => {
+    const book = getBookFromAuthor(authorId, bookId);
+
+    book.titulo = bookProperties.titulo || book.titulo;
+    book.descripcion = bookProperties.descripcion || book.descripcion;
+    book.anioPublicacion = bookProperties.anioPublicacion || book.anioPublicacion;
+}
+
 module.exports = {
     updateAuthor,
     deleteAuthorById,
@@ -89,5 +103,6 @@ module.exports = {
     addAuthor,
     getBooksFromAuthor,
     addBookToAuthor,
-    getBookFromAuthor
+    getBookFromAuthor,
+    updateBookOnAuthor
 };

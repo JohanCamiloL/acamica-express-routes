@@ -54,7 +54,13 @@ const getBookFromAuthor = (req, res) => {
  * @param {import('express').Response} res Response object
  */
 const updateBookFromAuthor = (req, res) => {
+    const { id, idLibro } = req.params;
+    const { titulo, descripcion, anioPublicacion } = req.body;
 
+    authorsArray.updateBookOnAuthor(id, idLibro, { titulo, descripcion, anioPublicacion });
+
+    res.status(200)
+        .json({ authorId: id, bookId: idLibro });
 }
 
 /**
