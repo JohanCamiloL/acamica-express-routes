@@ -1,14 +1,13 @@
+const authorsArray = require('../config/authorsArray');
 const Author = require('../model/Author');
-
-let authors = [];
 
 /**
  * Get all authors from main list.
  * @param {Request} req Request object
  * @param {Response} res Response object
  */
-const getAllAuthorsFromList = (req, res) => {
-    res.status(200).json({ authors });
+const getAuthors = (req, res) => {
+    res.status(200).json({ authors: authorsArray.getAuthors() });
 }
 
 /**
@@ -16,11 +15,12 @@ const getAllAuthorsFromList = (req, res) => {
  * @param {Request} req Request object
  * @param {Response} res Response object
  */
-const createNewAuthorOnList = (req, res) => {
+const createNewAuthor = (req, res) => {
     const { id, nombre, apellido, fechaDeNacimiento, libros } = req.body;
 
     if (id && nombre && apellido && fechaDeNacimiento && libros) {
-        authors.push(new Author(id, nombre, apellido, fechaDeNacimiento, libros));
+        const author = new Author(id, nombre, apellido, fechaDeNacimiento, libros);
+        authorsArray.addAuthor(author);
 
         res.status(201).json({ id });
     } else {
@@ -34,10 +34,10 @@ const createNewAuthorOnList = (req, res) => {
  * @param {Request} req Request object
  * @param {Response} res Response object
  */
-const getAuthorByIdFromList = (req, res) => {
+const getAuthorById = (req, res) => {
     const { id } = req.params;
 
-    const author = getAuthorById(id);
+    const author = authorsArray.getAuthorById(id);
 
     if (author) {
         res.status(200)
@@ -53,10 +53,10 @@ const getAuthorByIdFromList = (req, res) => {
  * @param {Request} req Request object
  * @param {Response} res Response object
  */
-const deleteAuthorFromList = (req, res) => {
+const deleteAuthor = (req, res) => {
     const { id } = req.params;
 
-    deleteAuthorById(id);
+    authorsArray.deleteAuthorById(id);
 
     res.status(204).json({});
 }
@@ -66,51 +66,21 @@ const deleteAuthorFromList = (req, res) => {
  * @param {Request} req Request object
  * @param {Response} res Response object
  */
-const updateAuthorOnList = (req, res) => {
+const updateAuthor = (req, res) => {
     const { id } = req.params;
     const { nombre, apellido, fechaDeNacimiento, libros } = req.body;
 
-    const autor = new Author(id, nombre, apellido, fechaDeNacimiento, libros);
+    const author = new Author(id, nombre, apellido, fechaDeNacimiento, libros);
 
-    updateAuthor(autor);
+    authorsArray.updateAuthor(author);
 
     res.status(200).json({ id });
 }
 
-/**
- * Update an author
- * @param {Author} author Author 
- */
-const updateAuthor = (author) => {
-    const initAutor = getAuthorById(author.id);
-
-    initAutor.nombre = author.nombre;
-    initAutor.apellido = author.apellido;
-    initAutor.fechaDeNacimiento = author.fechaDeNacimiento;
-    initAutor.libros = author.libros;
-}
-
-/**
- * Delete an author by the given id.
- * @param {Number} id Author id
- */
-const deleteAuthorById = (id) => {
-    const filteredAuthors = authors.filter(author => author.id != id);
-
-    authors = filteredAuthors;
-}
-
-/**
- * Get an author by its id.
- * @param {Number} id Author id
- * @return {Author} Author object
- */
-const getAuthorById = (id) => authors.find(author => author.id == id);
-
 module.exports = {
-    getAllAuthorsFromList,
-    createNewAuthorOnList,
-    getAuthorByIdFromList,
-    deleteAuthorFromList,
-    updateAuthorOnList
+    getAuthors,
+    createNewAuthor,
+    getAuthorById,
+    deleteAuthor,
+    updateAuthor
 }

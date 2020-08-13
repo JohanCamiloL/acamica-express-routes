@@ -2,13 +2,13 @@ const authorController = require('../controller/authorController');
 
 module.exports = (app) => {
 
-    app.get('/autores', authorController.getAllAuthorsFromList);
+    app.get('/autores', authorController.getAuthors);
 
-    app.post('/autores', authorController.createNewAuthorOnList);
+    app.post('/autores', authorController.createNewAuthor);
 
-    app.get('/autores/:id', authorController.getAuthorByIdFromList);
+    app.get('/autores/:id', authorController.getAuthorById);
 
-    app.delete('/autores/:id', authorController.deleteAuthorFromList);
+    app.delete('/autores/:id', authorController.deleteAuthor);
 
-    app.put('/autores/:id', authorController.updateAuthorOnList);
+    app.put('/autores/:id', authorController.updateAuthor);
 }

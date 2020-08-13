@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const authorRoutes = require('./routes/authorRoutes');
 const bookRoutes = require('./routes/bookRoutes');
+const Author = require('./model/Author');
 
 const app = express();
 
