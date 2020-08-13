@@ -4,7 +4,7 @@ const Author = require('./Author');
 
 const app = express();
 
-const autores = [];
+let autores = [];
 
 app.use(bodyParser.json());
 
@@ -49,6 +49,28 @@ app.get('/autores/:id', (req, res) => {
             .json({ message: 'No existe un autor con id ' + id });
     }
 });
+
+/**
+ * Eliminar un autor por su ID.
+ */
+app.delete('/autores/:id', (req, res) => {
+    const { id } = req.params;
+
+    deleteAuthorById(id);
+
+    res.status(204)
+        .json({});
+});
+
+/**
+ * Eliminar un autor por su id.
+ * @param {Number} id Id del autor.
+ */
+const deleteAuthorById = (id) => {
+    const autoresFiltrados = autores.filter(autor => autor.id != id);
+
+    autores = autoresFiltrados;
+}
 
 /**
  * Obtener un autor por su Id.
