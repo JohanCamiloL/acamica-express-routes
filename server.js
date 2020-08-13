@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const Author = require('./Author');
+const Author = require('./model/Author');
 
 const app = express();
 
@@ -9,7 +9,7 @@ let autores = [];
 app.use(bodyParser.json());
 
 /**
- * Abotener todos los autores.
+ * Get all authors
  */
 app.get('/autores', (req, res) => {
     res.status(200)
@@ -17,7 +17,7 @@ app.get('/autores', (req, res) => {
 });
 
 /**
- * Crear un nuevo autor dadas sus propiedades y guardarlo en el arreglo de autores.
+ * Create a new author by the given properties and save it on the authors array.
  */
 app.post('/autores', (req, res) => {
     const { id, nombre, apellido, fechaDeNacimiento, libros } = req.body;
@@ -34,7 +34,7 @@ app.post('/autores', (req, res) => {
 });
 
 /**
- * Obtener un autor por id.
+ * Get author by the given id.
  */
 app.get('/autores/:id', (req, res) => {
     const { id } = req.params;
@@ -51,7 +51,7 @@ app.get('/autores/:id', (req, res) => {
 });
 
 /**
- * Eliminar un autor por su ID.
+ * Remove author by the given id.
  */
 app.delete('/autores/:id', (req, res) => {
     const { id } = req.params;
@@ -75,36 +75,36 @@ app.put('/autores/:id', (req, res) => {
 });
 
 /**
- * Actualizar un autor.
- * @param {Author} autor Autor 
+ * Apdate an author
+ * @param {Author} author Author 
  */
-const updateUser = (autor) => {
-    const initAutor = getAuthorById(autor.id);
+const updateUser = (author) => {
+    const initAutor = getAuthorById(author.id);
 
-    initAutor.nombre = autor.nombre;
-    initAutor.apellido = autor.apellido;
-    initAutor.fechaDeNacimiento = autor.fechaDeNacimiento;
-    initAutor.libros = autor.libros;
+    initAutor.nombre = author.nombre;
+    initAutor.apellido = author.apellido;
+    initAutor.fechaDeNacimiento = author.fechaDeNacimiento;
+    initAutor.libros = author.libros;
 }
 
 /**
- * Eliminar un autor por su id.
- * @param {Number} id Id del autor.
+ * Delete an author by the given id.
+ * @param {Number} id Author id
  */
 const deleteAuthorById = (id) => {
-    const autoresFiltrados = autores.filter(autor => autor.id != id);
+    const filteredAuthors = autores.filter(author => author.id != id);
 
-    autores = autoresFiltrados;
+    autores = filteredAuthors;
 }
 
 /**
- * Obtener un autor por su Id.
- * @param {Number} id Id del autor
- * @return {Author} Objeto autor
+ * Get an author by its id.
+ * @param {Number} id Author id
+ * @return {Author} Author object
  */
-const getAuthorById = (id) => autores.find(autor => autor.id == id);
+const getAuthorById = (id) => autores.find(author => author.id == id);
 
 /**
- * El servidor esta escuchando en el puerto 3000.
+ * Put the server to listen requests on 3000 port.
  */
-app.listen(3000, () => console.log('Servidor escuchando en puerto 3000'));
+app.listen(3000, () => console.log('Server listening on port 3000'));
