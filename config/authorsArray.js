@@ -95,6 +95,19 @@ const updateBookOnAuthor = (authorId, bookId, bookProperties) => {
     book.anioPublicacion = bookProperties.anioPublicacion || book.anioPublicacion;
 }
 
+/**
+ * Deletes a book by the given id on the given author id.
+ * @param {Number} authorId Author id.
+ * @param {Number} bookId Book id.
+ */
+const deleteBookOnAuthor = (authorId, bookId) => {
+    const author = getAuthorById(authorId);
+    const authorBooks = author.libros;
+    const filteredBooks = authorBooks.filter(book => book.id != bookId);
+
+    author.libros = filteredBooks;
+}
+
 module.exports = {
     updateAuthor,
     deleteAuthorById,
@@ -104,5 +117,6 @@ module.exports = {
     getBooksFromAuthor,
     addBookToAuthor,
     getBookFromAuthor,
-    updateBookOnAuthor
+    updateBookOnAuthor,
+    deleteBookOnAuthor
 };

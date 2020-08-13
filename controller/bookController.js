@@ -69,7 +69,12 @@ const updateBookFromAuthor = (req, res) => {
  * @param {import('express').Response} res Response object
  */
 const deleteBookFromAuthor = (req, res) => {
+    const { id, idLibro } = req.params;
 
+    authorsArray.deleteBookOnAuthor(id, idLibro);
+
+    res.status(204)
+        .json({});
 }
 
 module.exports = {
