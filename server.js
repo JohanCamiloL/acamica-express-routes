@@ -62,6 +62,31 @@ app.delete('/autores/:id', (req, res) => {
         .json({});
 });
 
+app.put('/autores/:id', (req, res) => {
+    const { id } = req.params;
+    const { nombre, apellido, fechaDeNacimiento, libros } = req.body;
+
+    const autor = new Author(id, nombre, apellido, fechaDeNacimiento, libros);
+
+    updateUser(autor);
+
+    res.status(200)
+        .json({ id });
+});
+
+/**
+ * Actualizar un autor.
+ * @param {Author} autor Autor 
+ */
+const updateUser = (autor) => {
+    const initAutor = getAuthorById(autor.id);
+
+    initAutor.nombre = autor.nombre;
+    initAutor.apellido = autor.apellido;
+    initAutor.fechaDeNacimiento = autor.fechaDeNacimiento;
+    initAutor.libros = autor.libros;
+}
+
 /**
  * Eliminar un autor por su id.
  * @param {Number} id Id del autor.
