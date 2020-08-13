@@ -59,8 +59,10 @@ const updateBookFromAuthor = (req, res) => {
 
     authorsArray.updateBookOnAuthor(id, idLibro, { titulo, descripcion, anioPublicacion });
 
+    const book = authorsArray.getBookFromAuthor(id, idLibro);
+
     res.status(200)
-        .json({ authorId: id, bookId: idLibro });
+        .json({ book });
 }
 
 /**
@@ -77,10 +79,30 @@ const deleteBookFromAuthor = (req, res) => {
         .json({});
 }
 
+/**
+ * Middleware to verify if an author contains the given book.
+ * @param {import('express').Request} req Request object.
+ * @param {import('express').Response} res Response object.
+ * @param {import('express').NextFunction} next Next function
+ */
+const verifyIfBookExistsOnAuthor = (req, res, next) => {
+    const { id, idLibro } = req.params;
+    const authorBooks = authorsArray.getBooksFromAuthor(id);
+    const book = authorBooks.find(book => book.id == idLibro);
+
+    if (!book) {
+        res.status(404)
+            .json({ message: `The author with id ${id} doesn't have a book with id ${idLibro}` });
+    }
+
+    next();
+}
+
 module.exports = {
     getBookFromAuthor,
     getBooksFromAuthor,
     addBookToAuthor,
     updateBookFromAuthor,
-    deleteBookFromAuthor
+    deleteBookFromAuthor,
+    verifyIfBookExistsOnAuthor
 }

@@ -10,7 +10,8 @@ const books = [
 let authors = [
     new Author(1, 'Andres', 'Lopez', '19/05/1997', books),
     new Author(2, 'Carlos', 'Andrade', '17/04/1996', books),
-    new Author(3, 'Javier', 'Alvarez', '20/01/1990', books)
+    new Author(3, 'Javier', 'Alvarez', '20/01/1990', books),
+    new Author(4, 'Camilo', 'Castro', '20/01/1990', [])
 ]
 
 /**

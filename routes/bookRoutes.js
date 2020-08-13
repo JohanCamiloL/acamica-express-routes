@@ -1,4 +1,5 @@
 const bookController = require('../controller/bookController');
+const authorController = require('../controller/authorController');
 
 /**
  * 
@@ -6,13 +7,16 @@ const bookController = require('../controller/bookController');
  */
 module.exports = (app) => {
 
-    app.get('/autores/:id/libros', bookController.getBooksFromAuthor);
+    app.get('/autores/:id/libros', authorController.verifyIfAuthorExists, bookController.getBooksFromAuthor);
 
-    app.post('/autores/:id/libros', bookController.addBookToAuthor);
+    app.post('/autores/:id/libros', authorController.verifyIfAuthorExists, bookController.addBookToAuthor);
 
-    app.get('/autores/:id/libros/:idLibro', bookController.getBookFromAuthor);
+    app.get('/autores/:id/libros/:idLibro', authorController.verifyIfAuthorExists,
+        bookController.verifyIfBookExistsOnAuthor, bookController.getBookFromAuthor);
 
-    app.put('/autores/:id/libros/:idLibro', bookController.updateBookFromAuthor);
+    app.put('/autores/:id/libros/:idLibro', authorController.verifyIfAuthorExists,
+        bookController.verifyIfBookExistsOnAuthor, bookController.updateBookFromAuthor);
 
-    app.delete('/autores/:id/libros/:idLibro', bookController.deleteBookFromAuthor);
+    app.delete('/autores/:id/libros/:idLibro', authorController.verifyIfAuthorExists,
+        bookController.verifyIfBookExistsOnAuthor, bookController.deleteBookFromAuthor);
 }
