@@ -55,10 +55,18 @@ const deleteAuthorById = (id) => {
  */
 const getAuthorById = (id) => authors.find(author => author.id == id);
 
+/**
+ * Get books from the given author id.
+ * @param {Number} id Author id.
+ * @returns {Array} Books array.
+ */
+const getBooksFromAuthor = (id) => getAuthorById(id).libros;
+
 module.exports = {
     updateAuthor,
     deleteAuthorById,
     getAuthorById,
     getAuthors,
-    addAuthor
+    addAuthor,
+    getBooksFromAuthor
 };

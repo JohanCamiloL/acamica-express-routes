@@ -3,8 +3,8 @@ const Author = require('../model/Author');
 
 /**
  * Get all authors from main list.
- * @param {Request} req Request object
- * @param {Response} res Response object
+ * @param {import('express').Request} req Request object
+ * @param {import('express').Response} res Response object
  */
 const getAuthors = (req, res) => {
     res.status(200).json({ authors: authorsArray.getAuthors() });
@@ -12,8 +12,8 @@ const getAuthors = (req, res) => {
 
 /**
  * Creates and saves a new author on the main list.
- * @param {Request} req Request object
- * @param {Response} res Response object
+ * @param {import('express').Request} req Request object
+ * @param {import('express').Response} res Response object
  */
 const createNewAuthor = (req, res) => {
     const { id, nombre, apellido, fechaDeNacimiento, libros } = req.body;
@@ -31,8 +31,8 @@ const createNewAuthor = (req, res) => {
 
 /**
  * Gets an author by its id.
- * @param {Request} req Request object
- * @param {Response} res Response object
+ * @param {import('express').Request} req Request object
+ * @param {import('express').Response} res Response object
  */
 const getAuthorById = (req, res) => {
     const { id } = req.params;
@@ -50,8 +50,8 @@ const getAuthorById = (req, res) => {
 
 /**
  * Delete an author from the main list by the given id.
- * @param {Request} req Request object
- * @param {Response} res Response object
+ * @param {import('express').Request} req Request object
+ * @param {import('express').Response} res Response object
  */
 const deleteAuthor = (req, res) => {
     const { id } = req.params;
@@ -63,8 +63,8 @@ const deleteAuthor = (req, res) => {
 
 /**
  * Updates an author by the given id.
- * @param {Request} req Request object
- * @param {Response} res Response object
+ * @param {import('express').Request} req Request object
+ * @param {import('express').Response} res Response object
  */
 const updateAuthor = (req, res) => {
     const { id } = req.params;
